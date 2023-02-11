@@ -148,6 +148,7 @@ class RepVGGplusBlock(nn.Module):
         assert padding == 1
 
         self.nonlinearity = nn.ReLU()
+        # self.nonlinearity = nn.ReLU6()
 
         # 引入通道注意力机制
         # RepVGGPlus的SE通道注意力模块在非线性激活模块后使用

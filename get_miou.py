@@ -18,10 +18,9 @@ val_cfg = dict(
     miou_mode=0,  # 0, 1, 2
     mix_type=1,  # 0混合, 1仅原图, 2仅原图中的目标_扣去背景 get_miou不起作用
     # ---------- 卷积模型的参数 ----------
-    model_path="./logs/deeplabv3plus_fusion/last_epoch_weights.pth",
-    # xception, mobilenet, resnet50, resnext50, repvgg_new
-    # hrnet, hrnet_new, swin_transformer, mobilevit, mobilenetv3
-    # deeplabv3plus_fusion
+    # best_epoch_weights.pth
+    # last_epoch_weights.pth
+    model_path="./logs/deeplabv3plus_fusion/05_deeplabv3plus_backbone_bs16_500epoch_adam_multi_branches_aux_branches_RepMobileNetV3_Normal/best_epoch_weights.pth",
     backbone="deeplabv3plus_fusion",
     aux_branch=False,
     num_classes=7,
@@ -41,7 +40,7 @@ val_cfg = dict(
     # ---------- 文件夹的位置参数 ----------
     dataset_path="../../dataset/SUIMdevkit",
     file_name="val.txt",
-    save_file_dir="./miou_out_val",
+    save_file_dir="./miou_out_val_new",
 )
 
 

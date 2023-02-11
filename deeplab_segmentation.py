@@ -110,7 +110,16 @@ class DeeplabV3_Segmentation(object):
             self.num_classes, self.backbone, self.downsample_factor, aux_branch=self.aux
         )
 
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        device_type = None
+        if torch.cuda.is_available() and self.cuda:
+            device_type = "cuda"
+        else:
+            device_type = "cpu"
+        print(f"\033[1;36;46m 🔌🔌🔌🔌Use {device_type} for predicting \033[0m")
+        device = torch.device(device_type)
+        # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        # 载入训练完成的模型权重
         self.net.load_state_dict(
             torch.load(self.model_path, map_location=device), strict=False
         )

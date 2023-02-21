@@ -20,7 +20,7 @@ val_cfg = dict(
     # ---------- 卷积模型的参数 ----------
     # best_epoch_weights.pth
     # last_epoch_weights.pth
-    model_path="./logs/deeplabv3plus_fusion/05_deeplabv3plus_backbone_bs16_500epoch_adam_multi_branches_aux_branches_RepMobileNetV3_Normal/best_epoch_weights.pth",
+    model_path="./logs/deeplabv3plus_fusion/05_deeplabv3plus_backbone_bs16_500epoch_adam_multi_branches_aux_branches_RepMobileNetV3_Normal/last_epoch_weights.pth",
     backbone="deeplabv3plus_fusion",
     aux_branch=False,
     num_classes=7,
@@ -40,7 +40,7 @@ val_cfg = dict(
     # ---------- 文件夹的位置参数 ----------
     dataset_path="../../dataset/SUIMdevkit",
     file_name="val.txt",
-    save_file_dir="./miou_out_val_new",
+    save_file_dir="./miou_out_val_last",
 )
 
 

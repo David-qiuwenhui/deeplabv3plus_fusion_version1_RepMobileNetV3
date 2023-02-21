@@ -51,19 +51,21 @@ def fast_hist(a, b, n):
 
 
 def per_class_iu(hist):
-    return np.diag(hist) / np.maximum((hist.sum(1) + hist.sum(0) - np.diag(hist)), 1)
+    return np.diag(hist) / np.maximum(
+        (hist.sum(1) + hist.sum(0) - np.diag(hist)), 1
+    )  # TP/(TP+FN+FP)
 
 
 def per_class_PA_Recall(hist):
-    return np.diag(hist) / np.maximum(hist.sum(1), 1)
+    return np.diag(hist) / np.maximum(hist.sum(1), 1)  # TP/(TP+FN)
 
 
 def per_class_Precision(hist):
-    return np.diag(hist) / np.maximum(hist.sum(0), 1)
+    return np.diag(hist) / np.maximum(hist.sum(0), 1)  # TP/(TP+FP)
 
 
 def per_Accuracy(hist):
-    return np.sum(np.diag(hist)) / np.maximum(np.sum(hist), 1)
+    return np.sum(np.diag(hist)) / np.maximum(np.sum(hist), 1)  # TP/(total_pixel)
 
 
 def compute_mIoU(gt_dir, pred_dir, png_name_list, num_classes, name_classes=None):
@@ -108,7 +110,9 @@ def compute_mIoU(gt_dir, pred_dir, png_name_list, num_classes, name_classes=None
         # ------------------------------------------------#
         #   对一张图片计算21×21的hist矩阵，并累加
         # ------------------------------------------------#
-        hist += fast_hist(label.flatten(), pred.flatten(), num_classes)
+        hist += fast_hist(
+            label.flatten(), pred.flatten(), num_classes
+        )  # fast_hist生成混淆矩阵
         # 每计算10张就输出一下目前已计算的图片中所有类别平均的mIoU值
         if name_classes is not None and ind > 0 and ind % 10 == 0:
             print(
@@ -148,7 +152,9 @@ def compute_mIoU(gt_dir, pred_dir, png_name_list, num_classes, name_classes=None
     print(
         "===> mIoU: "
         + str(round(np.nanmean(IoUs) * 100, 2))
-        + "; mPA: "
+        + "; mPrecision: "
+        + str(round(np.nanmean(Precision) * 100, 2))
+        + "; mRecall: "
         + str(round(np.nanmean(PA_Recall) * 100, 2))
         + "; Accuracy: "
         + str(round(per_Accuracy(hist) * 100, 2))
@@ -211,16 +217,16 @@ def show_results(
     )
     print("Save mIoU out to " + os.path.join(miou_out_path, "mIoU.png"))
 
-    draw_plot_func(
-        PA_Recall,
-        name_classes,
-        "mPA = {0:.2f}%".format(np.nanmean(PA_Recall) * 100),
-        "Pixel Accuracy",
-        os.path.join(miou_out_path, "mPA.png"),
-        tick_font_size=tick_font_size,
-        plt_show=False,
-    )
-    print("Save mPA out to " + os.path.join(miou_out_path, "mPA.png"))
+    # draw_plot_func(
+    #     PA_Recall,
+    #     name_classes,
+    #     "mPA = {0:.2f}%".format(np.nanmean(PA_Recall) * 100),
+    #     "Pixel Accuracy",
+    #     os.path.join(miou_out_path, "mPA.png"),
+    #     tick_font_size=tick_font_size,
+    #     plt_show=False,
+    # )
+    # print("Save mPA out to " + os.path.join(miou_out_path, "mPA.png"))
 
     draw_plot_func(
         PA_Recall,

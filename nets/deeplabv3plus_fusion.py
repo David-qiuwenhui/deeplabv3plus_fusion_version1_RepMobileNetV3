@@ -549,28 +549,6 @@ class StageModule(nn.Module):
             w = c * (2**i)  # 对应第i个分支的通道数
             # TODO: 修改每个Stage中的block数量
             branch = nn.Sequential(
-                # BasicBlockNew(
-                #     in_planes=w,
-                #     expanded_planes=w * expanded_rate,
-                #     out_planes=w,
-                #     kernel=3,
-                #     stride=1,
-                #     use_hs=baseblock_use_hs,
-                #     use_se=baseblock_use_se,
-                #     deploy=deploy,
-                #     repvgg_use_se=repvgg_use_se,
-                # ),
-                # BasicBlockNew(
-                #     in_planes=w,
-                #     expanded_planes=w * expanded_rate,
-                #     out_planes=w,
-                #     kernel=3,
-                #     stride=1,
-                #     use_hs=baseblock_use_hs,
-                #     use_se=baseblock_use_se,
-                #     deploy=deploy,
-                #     repvgg_use_se=repvgg_use_se,
-                # ),
                 BasicBlockNew(
                     in_planes=w,
                     expanded_planes=w * expanded_rate,
@@ -918,8 +896,6 @@ def deeplabv3plus_fusion_backbone():
     # in_planes, expanded_planes, out_planes, kernel, stride, activation, use_se, width_multi
     # TODO: 修改Stage中的BottleNeck数量
     stage1_setting = [
-        # bneck_conf(32, 128, 32, 3, 1, "RE", False),
-        # bneck_conf(32, 128, 32, 3, 1, "RE", False),
         bneck_conf(32, 128, 32, 3, 1, "RE", False),
         bneck_conf(32, 128, 32, 3, 1, "RE", False),
     ]

@@ -40,7 +40,7 @@ val_cfg = dict(
     # ---------- 文件夹的位置参数 ----------
     dataset_path="../../dataset/SUIMdevkit",
     file_name="val.txt",
-    save_file_dir="./miou_out_val_last",
+    save_file_dir="./miou_out_val_last_aux",
 )
 
 

@@ -14,8 +14,8 @@ from utils.utils import time_synchronized
 pred_cfg = dict(
     # ---------- 预测模式的参数 ----------
     # predict, dir_predict, fps, video
-    mode="fps",  # predict, dir_predict, fps, video
-    mix_type=0,  # 0混合, 1仅原图, 2仅原图中的目标_扣去背景
+    mode="dir_predict",  # predict, dir_predict, fps, video
+    mix_type=1,  # 0混合, 1仅原图, 2仅原图中的目标_扣去背景
     # ---------- 深度卷积神经网络模型的超参数 ----------
     model_path="./logs/deeplabv3plus_fusion/05_deeplabv3plus_backbone_bs16_500epoch_adam_multi_branches_aux_branches_RepMobileNetV3_Normal/last_epoch_weights.pth",
     backbone="deeplabv3plus_fusion",
@@ -39,8 +39,8 @@ pred_cfg = dict(
     img_path="./img/d_r_4_.jpg",
     img_save_path="./img_out/predict_img.png",
     # ---------- 多张图片预测 ----------
-    dir_origin_path="img/",
-    dir_save_path="img_out/",
+    dir_origin_path="../version2_img_new/",
+    dir_save_path="version2_img_new_mask/",
     # ---------- fps计算模式 ----------
     test_interval=1000,  # image test interval
     fps_image="./img/d_r_4_.jpg",  # image root
@@ -134,7 +134,12 @@ def main(pred_cfg):
                 r_image = deeplab.detect_image(image)
                 if not os.path.exists(dir_save_path):
                     os.makedirs(dir_save_path)
-                r_image.save(os.path.join(dir_save_path, img_name))
+                if pred_cfg["mix_type"] == 1:
+                    r_image.save(
+                        os.path.join(dir_save_path, img_name.split(".")[0] + ".png")
+                    )
+                else:
+                    r_image.save(os.path.join(dir_save_path, img_name))
 
     elif mode == "fps":
         # ----------------------------------------------------------------------------------------------------------#
